@@ -1,33 +1,32 @@
 package ru.bstu.iitus.vt41.mvv;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Scanner;
 
-public class superMarket extends House {
-    private String name; // название супермаркета
+@Data
+@NoArgsConstructor
+public class SuperMarket extends House {
 
-    public superMarket() {
-    }
+    private String name;
 
     @Override
     public void init(Scanner scanner){
-        System.out.println("Введите название. ");
-        name = scanner.next();
-        System.out.println("Введите количество этажей супермаркета. ");
+        System.out.print("Введите название. ");
+        this.name = scanner.next();
+        System.out.print("Введите количество этажей супермаркета. ");
         super.setCount(scanner.nextInt());
-        System.out.println("Введите материал из которого сделан супермаркет. ");
+        System.out.print("Введите материал из которого сделан супермаркет. ");
         super.setMaterial(scanner.next());
-        System.out.println("Введите площадь супермаркета. ");
+        System.out.print("Введите площадь супермаркета. ");
         super.setArea(scanner.nextDouble());
-        System.out.println("Введите срок эксплуатации. ");
+        System.out.print("Введите срок эксплуатации. ");
         super.setExploitationPeriod(scanner.nextInt());
-        System.out.println("Введите год создания супермаркета. ");
+        System.out.print("Введите год создания супермаркета. ");
         super.setYear(scanner.nextInt());
-        System.out.println("Введите высоту супермаркета. ");
+        System.out.print("Введите высоту супермаркета. ");
         super.setHeight(scanner.nextInt());
-    }
-
-    public String getName() {
-        return name;
     }
 
     @Override

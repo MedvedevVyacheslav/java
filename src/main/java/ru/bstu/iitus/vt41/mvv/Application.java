@@ -1,48 +1,49 @@
 package ru.bstu.iitus.vt41.mvv;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import static ru.bstu.iitus.vt41.mvv.TypeConstructionEnum.showAllTypeConstructionEnum;
 
 public class Application {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        List<Construction> constructions = new ArrayList<Construction>();
+        System.out.print("Введите количество сооружений ");
+        int count = scanner.nextByte();
+        int choice;
+        for (int i = 0; i < count; i++) {
+            do {
+                System.out.println("Что создать?\n" + showAllTypeConstructionEnum());
+                choice = scanner.nextInt();
+            } while (choice < 1 || choice > TypeConstructionEnum.values().length);
 
-        System.out.println("Введите количество сооружений ");
-        Construction[] constructions = new Construction[scanner.nextByte()];
-
-        for (int i = 0; i < constructions.length; i++) {
-            System.out.println("Кого создать?\n" +
-                    "1) Супермаркет;\n" +
-                    "2) Частный дом;\n" +
-                    "3) Многоквартирный дом;\n" +
-                    "4) Мост;\n" +
-                    "5) Туннель.\n");
-            int choice = scanner.nextInt();
-
-            constructions[i] = createConstruction(choice);
-            constructions[i].init(scanner);
+            constructions.add(createConstruction(TypeConstructionEnum.from(choice)));
+            constructions.get(i).init(scanner);
         }
 
         System.out.println("Сооружение с минимальным сроком эксплуатации:\n " + searchMinExploitationPeriod(constructions).toString());
     }
 
-    public static Construction createConstruction(int i){
+    public static Construction createConstruction(TypeConstructionEnum constructionEnum){
         Construction construction = null;
 
-        switch (i) {
-            case 1:
-                construction = new superMarket();
+        switch (constructionEnum) {
+            case SUPERMARKET:
+                construction = new SuperMarket();
                 break;
-            case 2:
-                construction = new privateHouse();
+            case PRIVATEHOUSE:
+                construction = new PrivateHouse();
                 break;
-            case 3:
-                construction = new multiHouse();
+            case MULTIHOUSE:
+                construction = new MultiHouse();
                 break;
-            case 4:
+            case BRIDGE:
                 construction = new Bridge();
                 break;
-            case 5:
+            case TUNNEL:
                 construction = new Tunnel();
                 break;
         }
@@ -50,17 +51,18 @@ public class Application {
         return construction;
     }
 
-    public static Construction searchMinExploitationPeriod(Construction[] constructions) {
-        Integer minExploitationPeriod = constructions[0].getExploitationPeriod();
+    public static Construction searchMinExploitationPeriod(List<Construction> constructions) {
+        Integer minExploitationPeriod = constructions.get(0).getExploitationPeriod();
         int index = 0;
-
-        for (int i = 1; i < constructions.length; i++) {
-            if (constructions[i].getExploitationPeriod() < minExploitationPeriod) {
-                minExploitationPeriod = constructions[i].getExploitationPeriod();
+        int i = 1;
+        for (Construction tmpConstructions : constructions) {
+            if (tmpConstructions.getExploitationPeriod() < minExploitationPeriod) {
+                minExploitationPeriod = tmpConstructions.getExploitationPeriod();
                 index = i;
+                i++;
             }
         }
 
-        return constructions[index];
+        return constructions.get(index);
     }
 }

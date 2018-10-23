@@ -1,37 +1,36 @@
 package ru.bstu.iitus.vt41.mvv;
-
 import java.util.Scanner;
 
-public class Bridge extends Overpass {
-    private Double maxLoad; //максимальная нагрузка
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    public Bridge(){
-    }
+@Data
+@NoArgsConstructor
+public class Bridge extends Overpass {
+
+    private Double maxLoad;
 
     @Override
     public void init(Scanner scanner){
-        System.out.println("Введите максимальную нагрузку [тонн]. ");
-        maxLoad = scanner.nextDouble();
-        System.out.println("Введите протяженность [м]. ");
-        super.setLenght(scanner.nextDouble());
-        System.out.println("Введите срок эксплуатации. ");
+        System.out.print("Введите максимальную нагрузку [тонн]. ");
+        this.maxLoad = scanner.nextDouble();
+        System.out.print("Введите протяженность [м]. ");
+        super.setLength(scanner.nextDouble());
+        System.out.print("Введите срок эксплуатации. ");
         super.setExploitationPeriod(scanner.nextInt());
-        System.out.println("Введите год создания моста. ");
+        System.out.print("Введите год создания моста. ");
         super.setYear(scanner.nextInt());
-        System.out.println("Введите высоту моста. ");
+        System.out.print("Введите высоту моста. ");
         super.setHeight(scanner.nextInt());
-    }
-
-    public Double getMaxLoad() {
-        return maxLoad;
     }
 
     @Override
     public String toString() {
         return "максимальную нагрузку [тонн] " + getMaxLoad() +
-                "\nпротяженность [м] " + super.getLenght() +
+                "\nпротяженность [м] " + super.getLength() +
                 "\nсрок эксплуатации " + super.getExploitationPeriod() +
                 "\nгод создания моста " + super.getYear() +
                 "\nвысота моста " + super.getHeight();
     }
+
 }
