@@ -27,7 +27,7 @@ public class Application {
         System.out.println("Сооружение с минимальным сроком эксплуатации:\n " + searchMinExploitationPeriod(constructions).toString());
     }
 
-    public static Construction createConstruction(TypeConstructionEnum constructionEnum){
+    public static Construction createConstruction(TypeConstructionEnum constructionEnum) {
         Construction construction = null;
 
         switch (constructionEnum) {
@@ -52,17 +52,14 @@ public class Application {
     }
 
     public static Construction searchMinExploitationPeriod(List<Construction> constructions) {
-        Integer minExploitationPeriod = constructions.get(0).getExploitationPeriod();
-        int index = 0;
-        int i = 1;
-        for (Construction tmpConstructions : constructions) {
-            if (tmpConstructions.getExploitationPeriod() < minExploitationPeriod) {
-                minExploitationPeriod = tmpConstructions.getExploitationPeriod();
-                index = i;
-                i++;
+        Construction constructionWithMinPeriod = constructions.get(0);
+
+        for (Construction construction : constructions) {
+            if (construction.getExploitationPeriod() < constructionWithMinPeriod.getExploitationPeriod()) {
+                constructionWithMinPeriod = construction;
             }
         }
 
-        return constructions.get(index);
+        return constructionWithMinPeriod;
     }
 }
